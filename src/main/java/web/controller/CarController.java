@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import service.CarService;
 
-import javax.servlet.RequestDispatcher;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -20,17 +18,20 @@ public class CarController {
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String printCars(@RequestParam String locale, ModelMap model) {
         List<Car> carList = CarService.getCarService().getAllCars();
-        model.addAttribute("carList",carList);
+        model.addAttribute("carList", carList);
         loc = 1;
         if (locale.equals("en")) {
-            model.addAttribute("car","CARS");
+            model.addAttribute("car", "CARS");
         } else if (locale.equals("ru")) {
             model.addAttribute("car", "МАШИНЫ");
-        }else {
+        } else {
             model.addAttribute("car", "unknown locale Cars");
         }
         return "cars";
     }
+
+    /* метод printCars2 в условиях задачи избыточен но иначе при отсутствии локали выкидывает 404
+    * */
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String printCars2(ModelMap model) {
